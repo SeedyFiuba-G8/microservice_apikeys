@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+httptools
+setuptools
+flake8
+coverage

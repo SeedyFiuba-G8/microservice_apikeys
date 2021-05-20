@@ -1,0 +1,68 @@
+name: CI
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    env:
+      CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+    steps:
+      - uses: actions/checkout@master
+      - name: Use python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip  
+          pip install -r requierements.txt
+      - name: Run Tests
+        run: coverage run -m unittest discover -v # -s ./test
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+  async_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use python
+        uses: actions/setup-python@v2
+        with:
+          3.7-version: "3.7"
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requierements.txt
+      # - name: Lint with flake8
+      #   run: |
+      #     # stop the build if there are Python syntax errors or undefined names
+      #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Lint with flake8
+      - uses: py-actions/flake8@v1
+  build_and_push:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_MAIL }}
+    needs: [run_tests, async_lint]
+    steps:
+      - uses: actions/checkout@master
+      - name: Build Container
+        run: docker build -t "microservice_apikeys_${BRANCH_NAME}" .
+      - name: Log in to Heroku Container Registry
+        run: heroku container:login
+      - name: Tag Container
+        run: docker tag "microservice_apikeys_${BRANCH_NAME}" registry.heroku.com/sf-tdp2-apikeys-${BRANCH_NAME}/web"
+      - name: Push Container
+        run: docker push "registry.heroku.com/sf-tdp2-apikeys-${BRANCH_NAME}/web"
+      - name: Release Container
+        run: heroku container:release web --app "sf-tdp2-apikeys-${BRANCH_NAME}"
