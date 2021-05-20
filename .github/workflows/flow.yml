@@ -52,16 +52,18 @@ jobs:
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       HEROKU_EMAIL: ${{ secrets.HEROKU_MAIL }}
+      # magic ternary
+      BRANCH_REF: ${{ (github.event_name == 'pull_request') && github.base_ref || github.ref }}
     needs: [run_tests, async_lint]
     steps:
       - uses: actions/checkout@master
       - name: Build Container
-        run: docker build -t "microservice_apikeys_${GITHUB_REF##*/}" .
+        run: docker build -t "microservice_apikeys_${BRANCH_REF##*/}" .
       - name: Log in to Heroku Container Registry
         run: heroku container:login
       - name: Tag Container
-        run: docker tag "microservice_apikeys_${GITHUB_REF##*/}" "registry.heroku.com/sf-tdp2-apikeys-${GITHUB_REF##*/}/web"
+        run: docker tag "microservice_apikeys_${BRANCH_REF##*/}" "registry.heroku.com/sf-tdp2-apikeys-${BRANCH_REF##*/}/web"
       - name: Push Container
-        run: docker push "registry.heroku.com/sf-tdp2-apikeys-${GITHUB_REF##*/}/web"
+        run: docker push "registry.heroku.com/sf-tdp2-apikeys-${BRANCH_REF##*/}/web"
       - name: Release Container
-        run: heroku container:release web --app "sf-tdp2-apikeys-${GITHUB_REF##*/}"
+        run: heroku container:release web --app "sf-tdp2-apikeys-${BRANCH_REF##*/}"
