@@ -59,7 +59,7 @@ jobs:
       - name: Log in to Heroku Container Registry
         run: heroku container:login
       - name: Tag Container
-        run: docker tag "microservice_apikeys_${GITHUB_REF##*/}" "registry.heroku.com/sf-tdp2-apikeys-${BRANCH_NAME}/web"
+        run: docker tag "microservice_apikeys_${GITHUB_REF##*/}" "registry.heroku.com/sf-tdp2-apikeys-${GITHUB_REF##*/}/web"
       - name: Push Container
         run: docker push "registry.heroku.com/sf-tdp2-apikeys-${GITHUB_REF##*/}/web"
       - name: Release Container
