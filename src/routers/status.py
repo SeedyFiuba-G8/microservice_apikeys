@@ -1,19 +1,21 @@
+from src.authorization import api_keys_auth
 from fastapi import APIRouter, Depends
 
-from src.services import DatabaseService
 from src.assets.responses import Health, Ping
 from src.controllers import StatusController
 
-router = APIRouter()
+router = APIRouter(
+    tags=['status'],
+    dependencies=[Depends(api_keys_auth)]
+)
 
 
 @router.get('/health', response_model=Health)
-async def get_health(status_controller: StatusController = Depends(),
-                     db_service: DatabaseService = Depends()):
+async def get_health(status_controller: StatusController = Depends()):
     '''
     Microservice general health state reported.
     '''
-    return await status_controller.get_health(db_service)
+    return await status_controller.get_health()
 
 
 @router.get('/ping', response_model=Ping)

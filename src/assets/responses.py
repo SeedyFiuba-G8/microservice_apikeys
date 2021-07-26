@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 from pydantic import BaseModel
 
 from src.assets.schemas import Key, Service
@@ -9,7 +9,13 @@ class GetAllKeys(BaseModel):
     keys: Dict[str, Dict[Service, Key]]
 
 
-class PostKey(BaseModel):
+class GetKeys(BaseModel):
+    core: Optional[str] = None
+    sc: Optional[str] = None
+    users: Optional[str] = None
+
+
+class PostKeys(BaseModel):
     service: Service
     key: Key
 

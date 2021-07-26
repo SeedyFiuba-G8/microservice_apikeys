@@ -5,5 +5,5 @@ from src.config.dev import config as dev_config
 
 if config.ENV == 'main':
     config.update(main_config)
-elif config.ENV == 'dev':
+else:
     config.update(dev_config)

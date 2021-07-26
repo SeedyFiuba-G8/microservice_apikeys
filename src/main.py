@@ -5,7 +5,12 @@ from src.routers import routers_list
 from src.config import config
 
 
-app = FastAPI(**config.OPENAPI_SETTINGS)
+app = FastAPI(
+    docs_url='/api-docs',
+    **config.OPENAPI_SETTINGS
+)
+
+
 for router in routers_list:
     app.include_router(router)
 
@@ -15,4 +20,4 @@ async def docs_redirect():
     '''
     Redirect to '/docs'.
     '''
-    return RedirectResponse(url='/docs')
+    return RedirectResponse(url='/api-docs')
