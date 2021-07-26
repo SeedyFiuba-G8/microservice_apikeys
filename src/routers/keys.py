@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("")     
+@router.get("")
 async def get_all_keys(keys_controller: KeysController = Depends(),
                        db_service: DatabaseService = Depends()):
     return await keys_controller.get_all(db_service)

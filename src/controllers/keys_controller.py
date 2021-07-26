@@ -1,7 +1,5 @@
 import random
 
-from fastapi import Depends
-
 from services.database_service import DatabaseService
 from assets.responses import GetAllKeys, PostKey
 from assets.schemas import Service

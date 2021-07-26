@@ -6,6 +6,7 @@ from assets.responses import Health, Ping
 def get_db_service():
     return DatabaseService
 
+
 class StatusController:
 
     @staticmethod

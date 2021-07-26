@@ -4,3 +4,4 @@ setuptools
 coverage
 pymongo[srv]
 autopep8
+flake8
