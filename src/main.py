@@ -1,14 +1,18 @@
-import os
-import uvicorn
-from fastapi import FastAPI
-from hello_world import get_hello_msg, HelloWorldMessage
+from fastapi import FastAPI, Depends
+from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+from routers import routers_list
+from config import config
 
 
-@app.get("/", response_model=HelloWorldMessage)
-async def home():
-    return await get_hello_msg()
+app = FastAPI(**config.OPENAPI_SETTINGS)
+for router in routers_list:
+    app.include_router(router)
 
-if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=os.environ['PORT'])
+
+@app.get("/", include_in_schema=False)
+async def docs_redirect():
+    '''
+    Redirect to '/docs'.
+    '''
+    return RedirectResponse(url='/docs')
