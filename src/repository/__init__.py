@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-from config import config
+from src.config import config
 
 
 def get_db_client() -> MongoClient:

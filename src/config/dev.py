@@ -1,4 +1,4 @@
-from .default import Config
+from src.config.default import Config
 
 config: Config = Config(
     DB_USER='devadmin',

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 
-from services import DatabaseService
-from assets.responses import Health, Ping
-from controllers import StatusController
+from src.services import DatabaseService
+from src.assets.responses import Health, Ping
+from src.controllers import StatusController
 
 router = APIRouter()
 

@@ -1,2 +1,2 @@
-from .status_controller import StatusController
-from .keys_controller import KeysController
+from src.controllers.status_controller import StatusController
+from src.controllers.keys_controller import KeysController

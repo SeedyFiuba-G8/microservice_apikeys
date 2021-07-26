@@ -1,6 +1,6 @@
 
-from services.database_service import DatabaseService
-from assets.responses import Health, Ping
+from src.services import DatabaseService
+from src.assets.responses import Health, Ping
 
 
 def get_db_service():

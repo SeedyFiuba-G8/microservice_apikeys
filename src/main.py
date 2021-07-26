@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from routers import routers_list
-from config import config
+from src.routers import routers_list
+from src.config import config
 
 
 app = FastAPI(**config.OPENAPI_SETTINGS)

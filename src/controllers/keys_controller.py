@@ -1,8 +1,8 @@
 import random
 
-from services.database_service import DatabaseService
-from assets.responses import GetAllKeys, PostKey
-from assets.schemas import Service
+from src.services.database_service import DatabaseService
+from src.assets.responses import GetAllKeys, PostKey
+from src.assets.schemas import Service
 
 
 class KeysController:

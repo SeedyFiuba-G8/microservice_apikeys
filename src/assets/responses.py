@@ -1,7 +1,7 @@
 from typing import Dict
 from pydantic import BaseModel
 
-from .schemas import Key, Service
+from src.assets.schemas import Key, Service
 
 
 class GetAllKeys(BaseModel):

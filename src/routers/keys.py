@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 
 
-from services import DatabaseService
-from assets.responses import PostKey
-from assets.schemas import Service
-from controllers import KeysController
+from src.services import DatabaseService
+from src.assets.responses import PostKey
+from src.assets.schemas import Service
+from src.controllers import KeysController
 
 router = APIRouter(
     prefix='/keys',

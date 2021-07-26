@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from repository import get_db_client
+from src.repository import get_db_client
 
 
 class DatabaseService:
