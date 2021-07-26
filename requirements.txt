@@ -1,6 +1,7 @@
 fastapi
 uvicorn
-httptools
 setuptools
-flake8
 coverage
+pymongo[srv]
+autopep8
+flake8
