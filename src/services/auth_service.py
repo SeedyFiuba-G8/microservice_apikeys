@@ -1,7 +1,7 @@
-from fastapi.exceptions import HTTPException
-from starlette.status import HTTP_403_FORBIDDEN
-from fastapi import Depends
+from fastapi import Depends, status
 
+from src.assets.responses import Error
+from src.exception import APIKeysException
 from src.assets.schemas import Key
 from src.repository import KeysDatabase
 
@@ -14,5 +14,5 @@ class AuthService:
         service = await self.db_client.get_service(api_key)
         keys = await self.db_client.get_auth_keys(service)
         if validate_key not in keys:
-            raise HTTPException(status_code=HTTP_403_FORBIDDEN, detail='Invalid access.')
+            raise APIKeysException(Error(status=status.HTTP_403_FORBIDDEN, name='Forbbidden.'))
         return
