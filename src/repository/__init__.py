@@ -1,1 +1,2 @@
-from src.repository.keys_repository import KeysDatabase
+from src.repository.api_keys_repository import APIKeysRepository
+from src.repository.valid_keys_repository import ValidKeysRepository

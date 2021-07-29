@@ -1,12 +1,12 @@
-from src.authorization import api_keys_auth
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Security
 
+from src.authorization import api_key_auth
 from src.assets.responses import Health, Ping, Info
 from src.controllers import StatusController
 
 router = APIRouter(
     tags=['status'],
-    dependencies=[Depends(api_keys_auth)]
+    dependencies=[Security(api_key_auth)]
 )
 
 

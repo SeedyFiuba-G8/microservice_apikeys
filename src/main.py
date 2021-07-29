@@ -7,8 +7,8 @@ from src.routers import routers_list
 from src.config import config
 
 app = FastAPI(
-    docs_url='/api-docs',
-    **config.OPENAPI_SETTINGS
+    debug=config.DEBUG,
+    **config.FASTAPI_SETTINGS
 )
 
 
