@@ -5,3 +5,5 @@ coverage
 pymongo[srv]
 autopep8
 flake8
+httpx
+passlib[bcrypt]

@@ -1,12 +1,2 @@
-from pymongo import MongoClient
-
-from src.config import config
-
-
-def get_db_client() -> MongoClient:
-    client = MongoClient(
-        "mongodb+srv://" + config.DB_USER + ":" +
-        config.DB_PASSWORD + "@cluster.wbauf.mongodb.net/" +
-        config.DB_DATABASE + "?retryWrites=true&w=majority"
-    )
-    return client
+from src.repository.api_keys_repository import APIKeysRepository
+from src.repository.valid_keys_repository import ValidKeysRepository

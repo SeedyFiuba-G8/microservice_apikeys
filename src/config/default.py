@@ -1,4 +1,5 @@
 from __future__ import annotations  # Necessary for Config type hinting
+from datetime import datetime
 from dataclasses import dataclass, asdict, field
 from os import getenv
 from typing import Dict
@@ -10,7 +11,7 @@ def default_openapi() -> Dict[str, str]:
         "version": "0.1.0",
         "description": "Part of the **Seedy FIUBA Project** "
         "([view it on GitHub](https://github.com/orgs/SeedyFiuba-G8))",
-        "hello": 'debug'
+        "docs_url": "/api-docs"
     }
 
 
@@ -20,8 +21,11 @@ class Config:
     DB_USER: str = None
     DB_PASSWORD: str = None
     DB_DATABASE: str = None
+    DEBUG: bool = False
+    START_TIME: str = datetime.now().isoformat('T', 'milliseconds') + 'Z'
+    DESCRIPTION = 'APIKeys microservice, management of services API keys.'
 
-    OPENAPI_SETTINGS: Dict[str, str] = field(default_factory=default_openapi)
+    FASTAPI_SETTINGS: Dict[str, str] = field(default_factory=default_openapi)
 
     def update(self, other: Config):
         other_dict = asdict(other)

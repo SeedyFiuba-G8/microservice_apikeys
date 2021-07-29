@@ -10,7 +10,7 @@ class Service(str, Enum):
     core = 'core'
     gateway = 'gateway'
     users = 'users'
-    smartcontract = 'smartcontract'
+    sc = 'sc'
 
 
-Key = NewType('Key', int)
+Key = NewType('Key', str)
