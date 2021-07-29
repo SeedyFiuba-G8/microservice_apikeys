@@ -11,9 +11,10 @@ class GetAllKeys(BaseModel):
 
 
 class GetKeys(BaseModel):
-    core: Optional[str] = None
-    sc: Optional[str] = None
-    users: Optional[str] = None
+    core: Optional[str]
+    sc: Optional[str]
+    users: Optional[str]
+    apikeys: Optional[str]
 
 
 class PostKeys(BaseModel):

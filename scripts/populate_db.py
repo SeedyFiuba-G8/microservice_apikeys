@@ -1,24 +1,21 @@
 from pymongo import MongoClient
 import os
+from passlib.context import CryptContext
 
 password = os.getenv('ADMIN_PASSWORD')
 database = os.getenv('DATABASE')
 
-defaultkeys = {
-    'core': 'SeedyFiubaCore',
-    'users': 'SeedyFiubaUsers',
-    'sc': 'SeedyFiubaSC',
-    'gateway': 'SeedyFiubaApigateway'
-}
+pwd = CryptContext(schemes='ldap_salted_md5')
 
-services = {'core', 'users', 'sc', 'gateway'}
+services = ['core', 'users', 'sc', 'gateway', 'apikeys']
 
 
 def main():
     client: MongoClient = MongoClient(
         f"mongodb+srv://admin:{password}@cluster.wbauf.mongodb.net/?retryWrites=true&w=majority")
 
-    values = [{'service': service, 'apikey': key} for service, key in defaultkeys.items()]
+    values = [{'service': service, 'apikey': pwd.hash(service+'default')[6:-1]}
+              for service in services if service != 'apikeys']
 
     db = client[database]
 
@@ -27,9 +24,16 @@ def main():
 
     service_keys = []
     for owner in services:
-        for val in values:
-            service_keys.append(
-                {'owner': owner, 'service': val['service'], 'apikey': val['apikey']})
+        if owner == 'apikeys':
+            continue
+        for service in services:
+            if service == owner:
+                continue
+            service_keys.append({
+                'owner': owner,
+                'service': service,
+                'apikey': pwd.hash(owner+service)[6:-1]
+            })
 
     keys = db['keys']
     keys.insert_many(service_keys)
