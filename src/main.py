@@ -26,7 +26,8 @@ async def docs_redirect():
 
 @app.exception_handler(APIKeysException)
 async def apikeys_exception_handler(_: Request, error: APIKeysException):
-    return JSONResponse(status_code=error.error.status, content=error.error.dict())
+    return JSONResponse(status_code=error.error.status,
+                        content=error.error.dict(exclude_unset=True, exclude_none=True))
 
 
 @app.exception_handler(Exception)
