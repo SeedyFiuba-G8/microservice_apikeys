@@ -1,10 +1,15 @@
-# Microservicio `fastapi`
+# API Keys Microservice
 
-## Creación del microservicio
+Written in Python (FastAPI).
 
-```
-heroku apps:create sf-tdp2-apikeys-main
+## DISCLAIMER: ¡Currently offline! :broken_heart:
 
-gh secret set HEROKU_MAIL -b mail@fi.uba.ar
-gh secret set HEROKU_API_KEY -b  heroku-api-key
-```
+Since we used **Heroku** to host our microservices, as they offer a limited number of free applications, we decided to remove them. CI/CD has been manually disabled.
+
+If you were to deploy this application, you should:
+
+-   Manually enable the workflow from GitHub Actions.
+-   Create your Heroku app to host our `main` (and optionally `dev` branch). Keep in mind this Heroku app should have the following `ENV_VARS`:
+    -   `FASTAPI_ENV`: `main`, `dev`.
+-   Setup **secrets** needed by our workflow (mainly Heroku credentials and application name).
+-   **Happy coding!**
