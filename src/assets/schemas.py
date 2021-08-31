@@ -11,6 +11,7 @@ class Service(str, Enum):
     gateway = 'gateway'
     users = 'users'
     sc = 'sc'
+    test_service = 'test-service'
 
 
 Key = NewType('Key', str)

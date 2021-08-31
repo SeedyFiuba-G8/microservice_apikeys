@@ -1,11 +1,7 @@
 from pydantic import BaseModel
 
-from src.assets.schemas import Key, Service
+from src.assets.schemas import Key
 
 
 class PostAuthBody(BaseModel):
     apikey: Key
-
-
-class PostKeysBody(BaseModel):
-    service: Service

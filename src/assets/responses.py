@@ -1,25 +1,15 @@
-from typing import Dict, List, Optional
+from typing import List, Optional
 from pydantic import BaseModel, validator
 from datetime import datetime
 
-from src.assets.schemas import Key, Service
-
-
-class GetAllKeys(BaseModel):
-    defaultkeys: Dict[Service, Key]
-    keys: Dict[str, Dict[Service, Key]]
+from src.assets.schemas import Key
 
 
 class GetKeys(BaseModel):
-    core: Optional[str]
-    sc: Optional[str]
-    users: Optional[str]
-    apikeys: Optional[str]
-
-
-class PostKeys(BaseModel):
-    service: Service
-    key: Key
+    core: Optional[Key]
+    sc: Optional[Key]
+    users: Optional[Key]
+    apikeys: Optional[Key]
 
 
 class Ping(BaseModel):
